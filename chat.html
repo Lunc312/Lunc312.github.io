@@ -1,0 +1,60 @@
+<HTML>
+<head>
+<title>Заявка</title>
+<script language="JavaScript" type="text/javascript" src="https://comet-server.ru/template/Profitable_site/js/jquery-2.0.3.min.js" ></script>
+<script language="JavaScript" type="text/javascript" src="https://comet-server.ru/CometServerApi.js" ></script>
+</head>
+<BODY { background="1.jpg" } > 
+
+ <TD align=center><font   face="FANTASY"> <div id="WebChatFormForm" ></div> 
+    <input type="text" id="WebChatNameID" placeholder="Укажите ваше имя..." > <br>
+    <textarea id = "WebChatTextID" placeholder = "Отправьте сообщение в online чат..." ></textarea><br>
+ 
+    <input type="button" onclick="web_send_msg();" value="Отправить" >
+    <div id="answer_div" ></div>
+ 
+    <script>
+         // Отправляет сообщение в чат
+         function web_send_msg()
+         {
+             // Получение значений из элементов ввода.
+             var text = $("#WebChatTextID").val(); // Получаем текст сообщения
+             var name = $("#WebChatNameID").val(); // Получаем имя пользователя
+ 
+             // Очистка поля с текстом сообщения
+             $("#WebChatTextID").val("");  
+ 
+             // Добавление отправленного сообщения к списку сообщений.
+             $("#WebChatFormForm").append("<p><b>"+name+": </b>"+text+"</p>");
+ 
+             // Отправка сообщения в канал чата
+             CometServer().web_pipe_send("web_chat_pipe", {"text":text, "name":name});
+         }
+ 
+ 
+         // Функция выполнится после загрузки страницы
+         $(document).ready(function()
+         {
+             CometServer().start({dev_id:1}) // Подключаемся к комет серверу
+ 
+             // Подписываемся на канал в который и будут отправляться сообщения чата.
+             CometServer().subscription("web_chat_pipe", function(msg)
+             {
+                console.log(msg)
+                 // Добавление полученного сообщения к списку сообщений.
+                 $("#WebChatFormForm").append("<p><b>"+msg.data.name+": </b>"+msg.data.text+"</p>");
+             });
+ 
+             
+         });
+    </script>
+
+</TD>
+
+</body>
+
+</html>
+<BR> <BR> <BR> <BR> <BR>
+<div id="footer">
+   &copy; Елена Сиротенко (вся информация взята из открытых источников)
+  </div>
