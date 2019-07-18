@@ -1,47 +1,47 @@
 <HTML>
 <head>
-<title>Заявка</title>
+    <title>Р—Р°СЏРІРєР°</title>
 <script language="JavaScript" type="text/javascript" src="https://comet-server.ru/template/Profitable_site/js/jquery-2.0.3.min.js" ></script>
 <script language="JavaScript" type="text/javascript" src="https://comet-server.ru/CometServerApi.js" ></script>
 </head>
 <BODY { background="1.jpg" } > 
 
- <TD align=center><font   face="FANTASY"> <div id="WebChatFormForm" ></div> 
-    <input type="text" id="WebChatNameID" placeholder="Укажите ваше имя..." > <br>
-    <textarea id = "WebChatTextID" placeholder = "Отправьте сообщение в online чат..." ></textarea><br>
- 
-    <input type="button" onclick="web_send_msg();" value="Отправить" >
+ <TD align=center><font   face="FANTASY"> <div id="WebChatFormForm" ></div>
+     <input type="text" id="WebChatNameID" placeholder="РЈРєР°Р¶РёС‚Рµ РІР°С€Рµ РёРјСЏ..."> <br>
+     <textarea id="WebChatTextID" placeholder="РћС‚РїСЂР°РІСЊС‚Рµ СЃРѕРѕР±С‰РµРЅРёРµ РІ online С‡Р°С‚..."></textarea><br>
+
+     <input type="button" onclick="web_send_msg();" value="РћС‚РїСЂР°РІРёС‚СЊ">
     <div id="answer_div" ></div>
  
     <script>
-         // Отправляет сообщение в чат
+         // РћС‚РїСЂР°РІР»СЏРµС‚ СЃРѕРѕР±С‰РµРЅРёРµ РІ С‡Р°С‚
          function web_send_msg()
          {
-             // Получение значений из элементов ввода.
-             var text = $("#WebChatTextID").val(); // Получаем текст сообщения
-             var name = $("#WebChatNameID").val(); // Получаем имя пользователя
+             // РџРѕР»СѓС‡РµРЅРёРµ Р·РЅР°С‡РµРЅРёР№ РёР· СЌР»РµРјРµРЅС‚РѕРІ РІРІРѕРґР°.
+             var text = $("#WebChatTextID").val(); // РџРѕР»СѓС‡Р°РµРј С‚РµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ
+             var name = $("#WebChatNameID").val(); // РџРѕР»СѓС‡Р°РµРј РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
  
-             // Очистка поля с текстом сообщения
+             // РћС‡РёСЃС‚РєР° РїРѕР»СЏ СЃ С‚РµРєСЃС‚РѕРј СЃРѕРѕР±С‰РµРЅРёСЏ
              $("#WebChatTextID").val("");  
  
-             // Добавление отправленного сообщения к списку сообщений.
+             // Р”РѕР±Р°РІР»РµРЅРёРµ РѕС‚РїСЂР°РІР»РµРЅРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ Рє СЃРїРёСЃРєСѓ СЃРѕРѕР±С‰РµРЅРёР№.
              $("#WebChatFormForm").append("<p><b>"+name+": </b>"+text+"</p>");
  
-             // Отправка сообщения в канал чата
+             // РћС‚РїСЂР°РІРєР° СЃРѕРѕР±С‰РµРЅРёСЏ РІ РєР°РЅР°Р» С‡Р°С‚Р°
              CometServer().web_pipe_send("web_chat_pipe", {"text":text, "name":name});
          }
  
  
-         // Функция выполнится после загрузки страницы
+         // Р¤СѓРЅРєС†РёСЏ РІС‹РїРѕР»РЅРёС‚СЃСЏ РїРѕСЃР»Рµ Р·Р°РіСЂСѓР·РєРё СЃС‚СЂР°РЅРёС†С‹
          $(document).ready(function()
          {
-             CometServer().start({dev_id:1}) // Подключаемся к комет серверу
+             CometServer().start({dev_id:1}) // РџРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє РєРѕРјРµС‚ СЃРµСЂРІРµСЂСѓ
  
-             // Подписываемся на канал в который и будут отправляться сообщения чата.
+             // РџРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РЅР° РєР°РЅР°Р» РІ РєРѕС‚РѕСЂС‹Р№ Рё Р±СѓРґСѓС‚ РѕС‚РїСЂР°РІР»СЏС‚СЊСЃСЏ СЃРѕРѕР±С‰РµРЅРёСЏ С‡Р°С‚Р°.
              CometServer().subscription("web_chat_pipe", function(msg)
              {
                 console.log(msg)
-                 // Добавление полученного сообщения к списку сообщений.
+                 // Р”РѕР±Р°РІР»РµРЅРёРµ РїРѕР»СѓС‡РµРЅРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ Рє СЃРїРёСЃРєСѓ СЃРѕРѕР±С‰РµРЅРёР№.
                  $("#WebChatFormForm").append("<p><b>"+msg.data.name+": </b>"+msg.data.text+"</p>");
              });
  
@@ -56,5 +56,5 @@
 </html>
 <BR> <BR> <BR> <BR> <BR>
 <div id="footer">
-   &copy; Елена Сиротенко (вся информация взята из открытых источников)
+    &copy; Р•Р»РµРЅР° РЎРёСЂРѕС‚РµРЅРєРѕ (РІСЃСЏ РёРЅС„РѕСЂРјР°С†РёСЏ РІР·СЏС‚Р° РёР· РѕС‚РєСЂС‹С‚С‹С… РёСЃС‚РѕС‡РЅРёРєРѕРІ)
   </div>
